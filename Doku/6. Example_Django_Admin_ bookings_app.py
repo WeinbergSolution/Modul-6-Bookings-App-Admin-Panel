@@ -401,9 +401,101 @@ class BookingAdmin(admin.ModelAdmin):
 
 #                             Erledigt
 
-# ----------------- 10. Prepopulierte Felder --------------------------- #
 
 
-# --------------- 11. Hilfe-Texte im Admin Panel ----------------------- #
+
+# ------------------- 10. Prepopulierte Felder ------------------- #
+
+# bookings_app/models.py
+
+class Participant(models.Model):
+
+    # full_name wird als zusätzliches Feld angelegt.
+    # blank=True bedeutet, dass das Feld nicht manuell ausgefüllt werden muss.
+
+    full_name = models.CharField(max_length=100, blank=True)
 
 
+# Da das Model verändert wurde, müssen neue Migrationen erstellt
+# und auf die Datenbank angewendet werden.
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+# bookings_app/admin.py
+
+class ParticipantAdmin(admin.ModelAdmin):
+
+    # fields legt fest, welche Felder im Admin Formular angezeigt werden.
+    # first_name und last_name müssen enthalten sein,
+    # da sie für prepopulated_fields benötigt werden.
+
+    fields = ['first_name', 'last_name', 'email', 'full_name']
+
+    # full_name wird bei der Eingabe automatisch aus
+    # first_name und last_name vorausgefüllt.
+    # Django verwendet dabei eine Slugify-Logik.
+
+    prepopulated_fields = {
+        'full_name': ['first_name', 'last_name']
+    }
+
+
+# Participant wird mit der eigenen ParticipantAdmin Klasse registriert.
+
+admin.site.register(Participant, ParticipantAdmin)
+
+
+# Beispiel:
+# first_name = Pascal
+# last_name  = Weinberg
+# full_name  = pascal-weinberg
+
+
+
+#                             Erledigt
+
+
+
+# ------------------- 11. Hilfe-Texte im Admin Panel ------------------- #
+
+# bookings_app/models.py
+
+class Participant(models.Model):
+
+    # help_text fügt einen Hilfetext zu einem Model-Feld hinzu.
+    # Dieser wird auch im Django Admin unter dem jeweiligen Feld angezeigt.
+
+    first_name = models.CharField(
+        max_length=100,
+        help_text='Only first name'
+    )
+
+    last_name = models.CharField(
+        max_length=100,
+        help_text='Only last name'
+    )
+
+    full_name = models.CharField(
+        max_length=100,
+        blank=True
+    )
+
+    email = models.EmailField(
+        unique=True,
+        help_text='test@test.de'
+    )
+
+
+# Die Hilfetexte erklären dem Benutzer,
+# welche Eingabe für das jeweilige Feld erwartet wird.
+
+# Da nur help_text verändert wurde, ist keine Änderung
+# der eigentlichen Datenbankstruktur notwendig.
+
+
+
+#                             Erledigt
+
+#                          Cpmplete app Done
