@@ -7,6 +7,7 @@ from .models import EventCategory, Location, Event
 
 class EventAdmin(admin.ModelAdmin):
 
+    ordering = ['date']
     date_hierarchy = "date"
     list_filter=['category']
     list_display=['title', 'category', 'location', 'date']
@@ -27,6 +28,8 @@ class EventAdmin(admin.ModelAdmin):
             },
         ),
     ]
+
+    
 
 
 

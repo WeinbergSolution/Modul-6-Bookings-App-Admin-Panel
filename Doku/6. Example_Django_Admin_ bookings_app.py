@@ -350,7 +350,35 @@ admin.site.register(Booking, BookingAdmin)
 
 
 
-# -------- 8. Umbenennung von Modellen und Feldernt -------------------- #
+# ------------------- 8. Umbenennung von Modellen und Feldern ------------------- #
+
+# events_app/models.py
+
+class Event(models.Model):
+
+    # Meta enthält zusätzliche Einstellungen für das Model.
+    # verbose_name ändert die Bezeichnung des Models im Admin Panel.
+    # Das Model selbst heißt weiterhin Event.
+
+    class Meta:
+        verbose_name = 'Liveact'
+
+
+# events_app/admin.py
+
+class EventAdmin(admin.ModelAdmin):
+
+    # ordering legt die Sortierung der Events im Admin Panel fest.
+    # Nach date wird aufsteigend sortiert.
+
+    ordering = ['date']
+
+
+# Event wird im Admin als "Liveact" angezeigt.
+# Die Events werden nach ihrem Datum sortiert.
+
+#                             Erledigt
+
 
 
 
