@@ -6,6 +6,7 @@ from .models import Participant, Booking
 
 class BookingAdmin(admin.ModelAdmin):
     list_filter=['confirmed']
+    readonly_fields = ['booking_date']
 
 
 

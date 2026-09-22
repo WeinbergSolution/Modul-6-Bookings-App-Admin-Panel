@@ -314,8 +314,7 @@ class EventAdmin(admin.ModelAdmin):
 
 
 
-
-# ----------- 7. Filterung von Buchungen im Admin Panel ---------------- #
+# ---------- 7. Filterung von Buchungen im Admin Panel -------------- #
 
 # bookings_app/admin.py
 
@@ -350,7 +349,7 @@ admin.site.register(Booking, BookingAdmin)
 
 
 
-# ------------------- 8. Umbenennung von Modellen und Feldern ------------------- #
+# ---------- 8. Umbenennung von Modellen und Feldern ------------- #
 
 # events_app/models.py
 
@@ -382,10 +381,25 @@ class EventAdmin(admin.ModelAdmin):
 
 
 
+# --------- 9. Felder im Admin nur als read-only anzeigen ------------ #
+
+# bookings_app/admin.py
+
+class BookingAdmin(admin.ModelAdmin):
+
+    # readonly_fields zeigt das Feld weiterhin im Admin Panel an,
+    # verhindert aber, dass der Wert dort bearbeitet werden kann.
+
+    readonly_fields = ['booking_date']
 
 
-# ------ 9. Felder im Admin nur als read-only anzeigent ---------------- #
+# booking_date ist damit im Admin sichtbar,
+# kann aber nicht manuell verändert werden.
 
+
+
+
+#                             Erledigt
 
 # ----------------- 10. Prepopulierte Felder --------------------------- #
 
