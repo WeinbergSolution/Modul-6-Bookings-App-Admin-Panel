@@ -229,12 +229,6 @@ class EventAdmin(admin.ModelAdmin):
 
 # events_app/admin.py
 
-class EventAdmin(admin.ModelAdmin):
-
-    date_hierarchy = "date"
-
-
-
     # Der Bereich "Allgemein" ist direkt sichtbar.
     # Der Bereich "Organisation" ist durch collapse einklappbar.
 
@@ -294,22 +288,72 @@ python manage.py migrate
 
 
 
-# ---------------- 6. date_hierarchy hinzufügen ------------------------ #
-Aufgabe:
+# ------------------- 6. date_hierarchy hinzufügen ------------------------ #
 
-Füge das date_hierarchy-Attribut in der Admin-Klasse von Event hinzu, damit du Veranstaltungen nach Datum gruppiert anzeigen kannst.
+# Mit date_hierarchy können Datensätze im Admin Panel
+# anhand eines Datumsfeldes zeitlich gruppiert und gefiltert werden.
 
+# events_app/admin.py
 
 class EventAdmin(admin.ModelAdmin):
+
+    # Das date-Feld wird für die Datumshierarchie verwendet.
 
     date_hierarchy = "date"
 
 
+# Dadurch können die Events in der Admin-Übersicht
+# nach Jahr, Monat und Tag eingegrenzt werden.
 
-# ------------ 7. Filterung von Buchungen im Admin Panelt -------------- #
+# date_hierarchy benötigt ein geeignetes Datumsfeld,
+# hier verwenden wir das Feld "date" aus dem Event Model.
+
+
+#                             Erledigt  
+
+
+
+
+
+# ----------- 7. Filterung von Buchungen im Admin Panel ---------------- #
+
+# bookings_app/admin.py
+
+# Für das Booking Model wird eine eigene BookingAdmin Klasse erstellt.
+
+class BookingAdmin(admin.ModelAdmin):
+
+    # list_filter erstellt im Admin Panel eine Filtermöglichkeit
+    # für das Feld confirmed.
+    # Dadurch können bestätigte und nicht bestätigte Buchungen
+    # getrennt angezeigt werden.
+
+    list_filter = ['confirmed']
+
+
+# Booking wird mit der BookingAdmin Klasse registriert.
+admin.site.register(Booking, BookingAdmin)
+
+
+# Zum Testen wurden zwei Bookings angelegt.
+# confirmed = True  -> bestätigte Buchung
+# confirmed = False -> nicht bestätigte Buchung
+
+# Der Filter im Admin Panel funktioniert:
+# All -> alle Buchungen
+# Yes -> nur bestätigte Buchungen
+# No  -> nur nicht bestätigte Buchungen
+
+
+
+#                             Erledigt  
+
 
 
 # -------- 8. Umbenennung von Modellen und Feldernt -------------------- #
+
+
+
 
 
 # ------ 9. Felder im Admin nur als read-only anzeigent ---------------- #
