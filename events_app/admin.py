@@ -7,12 +7,28 @@ from .models import EventCategory, Location, Event
 
 class EventAdmin(admin.ModelAdmin):
 
+    date_hierarchy = "date"
     list_filter=['category']
-    search_fields=['title', 'date']
     list_display=['title', 'category', 'location', 'date']
    
 
-   
+    fieldsets = [
+        (
+            None,
+            {
+                "fields": ['title', 'category', 'date'],
+            },
+        ),
+        (
+            "Advanced options",
+            {
+                "classes": ['collapse'],    
+                'fields': ['location', 'capacity'], 
+            },
+        ),
+    ]
+
+
 
 
 

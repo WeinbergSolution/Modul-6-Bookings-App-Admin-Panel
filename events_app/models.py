@@ -17,9 +17,9 @@ class Location(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=200)
     category = models.ForeignKey(EventCategory, on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     date = models.DateTimeField()
-    capacity = models.PositiveIntegerField()
+    capacity = models.PositiveIntegerField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.title} ({self.date.date()})"
